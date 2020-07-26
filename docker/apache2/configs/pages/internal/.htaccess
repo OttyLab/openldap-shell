@@ -1,0 +1,6 @@
+AuthName "Internal site authentication"
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPUrl "ldap://openldap-shell/dc=example,dc=com?uid"
+Require ldap-group cn=internal-user,ou=Group,dc=example,dc=com
+Require ldap-attribute gidNumber=3000

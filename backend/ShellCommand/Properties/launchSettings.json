@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ShellCommand": {
+      "commandName": "Project"
+    }
+  }
+}

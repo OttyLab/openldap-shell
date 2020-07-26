@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  openldap-shell:
+    image: openldap-shell:latest
+    build: ./openldap
+    container_name: openldap-shell
+    ports:
+      - 389:389
+    volumes:
+      - ./openldap/data:/data
+      - ./openldap/command:/command
+    command: bash -c "/configs/start.sh"
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    depends_on:
+      - openldap-shell
+    ports:
+      - 6443:443
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap-shell
+
+  sshd-shell:
+    image: sshd:latest
+    build: ./sshd
+    container_name: sshd-shell
+    depends_on:
+      - openldap-shell
+    ports:
+      - 8022:222
+    volumes:
+      - ./sshd/configs:/configs_tmp
+    command: bash -c "/usr/sbin/sshd & /usr/sbin/sssd & while :; do sleep 10; done"
+
+  apache2-shell:
+    image: apache2-shell:latest
+    build: ./apache2
+    container_name: apache2-shell
+    depends_on:
+      - openldap-shell
+    ports:
+      - 8080:80

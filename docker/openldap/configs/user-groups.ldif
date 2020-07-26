@@ -1,0 +1,14 @@
+dn: cn=admin,ou=Group,dc=example,dc=com
+objectClass: posixGroup
+cn: admin
+gidNumber: 2000
+
+dn: cn=internal-user,ou=Group,dc=example,dc=com
+objectClass: posixGroup
+cn: internal-user 
+gidNumber: 3000
+
+dn: cn=external-user,ou=Group,dc=example,dc=com
+objectClass: posixGroup
+cn: external-user 
+gidNumber: 4000

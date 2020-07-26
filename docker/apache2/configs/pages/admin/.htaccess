@@ -1,0 +1,5 @@
+AuthName "Admin site authentication"
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPUrl "ldap://openldap-shell/dc=example,dc=com?uid"
+Require valid-user

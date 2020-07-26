@@ -1,0 +1,17 @@
+dn: cn=config
+changetype: modify
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: /data/openldap-cert.pem
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: /data/openldap-cert.pem
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: /data/openldap-key.pem
+-
+replace: olcTLSCRLCheck
+olcTLSCRLCheck: none
+-
+replace: olcTLSVerifyClient
+olcTLSVerifyClient: never
+-

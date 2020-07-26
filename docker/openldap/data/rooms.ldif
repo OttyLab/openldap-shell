@@ -1,0 +1,60 @@
+dn: commonName=room_1,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_1
+roomNumber: 1
+description: meeting room
+
+dn: commonName=room_2,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_2
+roomNumber: 2
+description: meeting room
+
+dn: commonName=room_3,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_3
+roomNumber: 3
+description: meeting room
+
+dn: commonName=room_4,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_4
+roomNumber: 4
+description: meeting room
+
+dn: commonName=room_5,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_5
+roomNumber: 5
+description: meeting room
+
+dn: commonName=room_6,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_6
+roomNumber: 6
+description: meeting room
+
+dn: commonName=room_7,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_7
+roomNumber: 7
+description: meeting room
+
+dn: commonName=room_8,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_8
+roomNumber: 8
+description: meeting room
+
+dn: commonName=room_9,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_9
+roomNumber: 9
+description: meeting room
+
+dn: commonName=room_10,ou=Facility,dc=example,dc=com
+objectClass: room
+commonName: room_10
+roomNumber: 10
+description: meeting room
+

@@ -1,0 +1,35 @@
+dn: cn=admin,ou=Employee,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: admin
+sn: Administrator
+uid: admin
+userPassword: {SSHA}n6j+DerPgOpFIAN1H23FjlIlH7NC16Xs
+uidNumber: 2000
+gidNumber: 2000
+loginShell: /bin/bash
+homeDirectory: /home/admin
+
+dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Taro Yamada
+sn: Yamada
+uid: taro.yamada 
+userPassword: {SSHA}46mXVpqhvxX3mF+yAzawY47d6ldDwwAs
+uidNumber: 3001
+gidNumber: 3000
+loginShell: /bin/bash
+homeDirectory: /home/taro.yamada
+
+dn: cn=jiro.sato,ou=Employee,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Jiro Sato
+sn: Sato
+uid: jiro.sato
+userPassword: {SSHA}XDJsljS1csTQoR7+zN9PyEvZOM3BxlxL
+uidNumber: 4001
+gidNumber: 4000
+loginShell: /bin/bash
+homeDirectory: /home/jiro.sato
