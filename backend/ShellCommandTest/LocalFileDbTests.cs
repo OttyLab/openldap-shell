@@ -173,7 +173,10 @@ namespace ShellCommandTest
 
             var actual = db.Search(requests);
             Assert.AreEqual("dn: cn=taro.yamada,ou=Employee,dc=example,dc=com", actual.ElementAt(0));
-            Assert.AreEqual("uid: taro.yamada", actual.ElementAt(1));
+            Assert.AreEqual("objectClass: inetOrgPerson", actual.ElementAt(1));
+            Assert.AreEqual("objectClass: posixAccount", actual.ElementAt(2));
+            Assert.AreEqual("cn: Taro Yamada", actual.ElementAt(3));
+            Assert.AreEqual("uid: taro.yamada", actual.ElementAt(4));
         }
     }
 }

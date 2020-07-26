@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -92,7 +91,6 @@ namespace ShellCommand.Db
 
             var pattern = $"^([^=]+=[^=,]+,){{{scope}}}{requests["base"].ElementAt(0)}";
             var entries = SearchInternal(storage, pattern, requests["filter"].ElementAt(0));
-            var attrs = requests["attrs"].ElementAt(0);
             var result = new List<string>();
 
             var cnt = 1;
@@ -103,25 +101,11 @@ namespace ShellCommand.Db
                     break;
                 }
 
-                if (!entry.ContainsKey(attrs))
+                foreach(var item in entry)
                 {
-                    foreach(var item in entry)
+                    foreach(var value in item.Value)
                     {
-                        foreach(var value in item.Value)
-                        {
-                            result.Add($"{item.Key}: {value}");
-                        }
-                    }
-                }
-                else
-                {
-                    var keys = attrs == "dn" ? new string[] { "dn"} : new string[] { "dn", attrs };
-                    foreach(var key in keys)
-                    {
-                        foreach(var value in entry[key])
-                        {
-                            result.Add($"{key}: {value}");
-                        }
+                        result.Add($"{item.Key}: {value}");
                     }
                 }
 
