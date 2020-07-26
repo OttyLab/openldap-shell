@@ -151,6 +151,7 @@ namespace ShellCommandTest
                 {"objectClass", new List<string> { "inetOrgPerson", "posixAccount"}},
                 {"cn", new List<string> { "Taro Yamada" }},
                 {"uid", new List<string> { "taro.yamada" }},
+                {"uidNumber", new List<string> { "3001" }},
             };
 
             db.Add(requests);
@@ -177,6 +178,31 @@ namespace ShellCommandTest
             Assert.AreEqual("objectClass: posixAccount", actual.ElementAt(2));
             Assert.AreEqual("cn: Taro Yamada", actual.ElementAt(3));
             Assert.AreEqual("uid: taro.yamada", actual.ElementAt(4));
+            Assert.AreEqual("uidNumber: 3001", actual.ElementAt(5));
+
+            stream.Position = 0;
+
+            requests = new Contents()
+            {
+                { "msgid", new List<string>(){ "1" } },
+                { "suffix", new List<string>(){ "dc=example,dc=com" } },
+                { "base", new List<string>(){ "dc=example,dc=com" } },
+                { "scope", new List<string>(){ "2" } },
+                { "deref", new List<string>(){ "0" } },
+                { "sizelimit", new List<string>(){ "-1" } },
+                { "timelimit", new List<string>(){ "-1" } },
+                { "filter", new List<string>(){ " (&(uid=taro.yamada)(objectClass=posixAccount)(&(uidNumber=*)(!(uidNumber=0))))" } },
+                { "attrsonlyr", new List<string>(){ "0" } },
+                { "attrs", new List<string>(){ "uid" } },
+            };
+
+            actual = db.Search(requests);
+            Assert.AreEqual("dn: cn=taro.yamada,ou=Employee,dc=example,dc=com", actual.ElementAt(0));
+            Assert.AreEqual("objectClass: inetOrgPerson", actual.ElementAt(1));
+            Assert.AreEqual("objectClass: posixAccount", actual.ElementAt(2));
+            Assert.AreEqual("cn: Taro Yamada", actual.ElementAt(3));
+            Assert.AreEqual("uid: taro.yamada", actual.ElementAt(4));
+            Assert.AreEqual("uidNumber: 3001", actual.ElementAt(5));
         }
 
         [Test]

@@ -190,7 +190,8 @@ namespace ShellCommand.Db
 
         private bool DoesPassFilter(Contents contents, string filter)
         {
-            var pattern = "\\((?<key>[^&]+?)=(?<value>.+?)\\)";
+            // TODO: Handle filter properly
+            var pattern = "\\((?<inv>!\\(){0,1}(?<key>[^&]+?)=(?<value>.+?)\\)";
             var matches = Regex.Matches(filter, pattern);
 
             // TODO: think of "|"
@@ -198,6 +199,7 @@ namespace ShellCommand.Db
             {
                 var key = match.Groups["key"].Value;
                 var value = match.Groups["value"].Value;
+                var inv = match.Groups["inv"].Value;
 
                 if (!contents.ContainsKey(key))
                 {
@@ -211,7 +213,10 @@ namespace ShellCommand.Db
 
                 if (!Enumerable.Contains(contents[key], value))
                 {
-                    return false;
+                    if (inv != "!(")
+                    {
+                        return false;
+                    }
                 }
             }
 
