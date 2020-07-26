@@ -76,6 +76,10 @@ add         /command/ShellCommand
 delete      /command/ShellCommand
 modify      /command/ShellCommand
 search      /command/ShellCommand
+bind        /command/ShellCommand
+unbind      /command/ShellCommand
+compare     /command/ShellCommand
+modrdn      /command/ShellCommand
 
 #add         /configs/run.sh
 #delete      /configs/run.sh

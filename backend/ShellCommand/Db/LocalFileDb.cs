@@ -118,6 +118,49 @@ namespace ShellCommand.Db
             return result;
         }
 
+        public IEnumerable<string> Compare(Contents requests)
+        {
+            var storage = ReadDb();
+            var result = new List<string>();
+
+            var dn = requests["dn"].ElementAt(0);
+            if (!storage.ContainsKey(dn))
+            {
+                result.Add("RESULT");
+                result.Add("code: 34");
+                return result;
+            }
+
+            var target = storage[dn];
+
+            foreach (var key in requests.Keys)
+            {
+                if (key == "dn" || key == "msgid" || key == "suffix")
+                {
+                    continue;
+                }
+
+                if (!target.ContainsKey(key))
+                {
+                    result.Add("RESULT");
+                    result.Add("code: 32");
+                    return result;
+                }
+
+                if (!target[key].Contains(requests[key].ElementAt(0)))
+                {
+                    result.Add("RESULT");
+                    result.Add("code: 5");
+                    return result;
+                }
+            }
+
+            result.Add("RESULT");
+            result.Add("code: 6");
+
+            return result;
+        }
+
         private Schema ReadDb()
         {
             if (Stream.Length == 0)

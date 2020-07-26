@@ -21,6 +21,16 @@ namespace ShellCommand
                         Util.Log("SEARCH", Util.GetDebugString(requests));
                         Util.WriteOutput(Console.OpenStandardOutput(), db.Search(requests));
                         break;
+                    case "COMPARE":
+                        Util.Log("COMPARE", Util.GetDebugString(requests));
+                        Util.WriteOutput(Console.OpenStandardOutput(), db.Compare(requests));
+                        break;
+                    case "BIND":
+                        Util.Log("BIND", Util.GetDebugString(requests));
+                        break;
+                    case "UNBIND":
+                        Util.Log("UNBIND", Util.GetDebugString(requests));
+                        break;
                     default:
                         Util.Log(command, Util.GetDebugString(requests));
                         throw new NotImplementedException($"{command} is not supported");

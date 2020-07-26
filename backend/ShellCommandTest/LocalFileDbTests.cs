@@ -178,5 +178,42 @@ namespace ShellCommandTest
             Assert.AreEqual("cn: Taro Yamada", actual.ElementAt(3));
             Assert.AreEqual("uid: taro.yamada", actual.ElementAt(4));
         }
+
+        [Test]
+        public void TestCompare()
+        {
+            var source = new Schema
+            {
+                { "cn=taro.yamada,ou=Employee,dc=example,dc=com", new Contents {
+                    { "dn", new List<string>(){"cn=taro.yamada,ou=Employee,dc=example,dc=com"} },
+                    { "objectClass", new List<string>(){ "inetOrgPerson", "posixAccount" } },
+                    { "cn", new List<string>(){ "Taro Yamada" } },
+                    { "sn", new List<string>(){ "Yamada" } },
+                    { "uid", new List<string>(){ "taro.yamada" } },
+                    { "userPassword", new List<string>(){ "{SSHA}46mXVpqhvxX3mF+yAzawY47d6ldDwwAs" } },
+                    { "uidNumber", new List<string>(){ "3001" } },
+                    { "gidNumber", new List<string>(){ "3000" } },
+                    { "loginShell", new List<string>(){ "/bin/bash" } },
+                    { "homeDirectory", new List<string>(){ "/home/taro.yamada" } },
+                } },
+            };
+
+            var json = JsonSerializer.Serialize(source);
+            stream.Write(Encoding.UTF8.GetBytes(json));
+
+            stream.Position = 0;
+
+            var requests = new Contents()
+            {
+                { "msgid", new List<string>(){ "1" } },
+                { "suffix", new List<string>(){ "dc=example,dc=com" } },
+                { "dn", new List<string>(){ "cn=taro.yamada,ou=Employee,dc=example,dc=com" } },
+                { "gidNumber", new List<string>(){ "3000" } },
+            };
+
+            var actual = db.Compare(requests);
+            Assert.AreEqual("RESULT", actual.ElementAt(0));
+            Assert.AreEqual("code: 6", actual.ElementAt(1));
+        }
     }
 }

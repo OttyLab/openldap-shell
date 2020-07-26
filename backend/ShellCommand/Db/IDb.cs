@@ -7,5 +7,6 @@ namespace ShellCommand.Db
     {
         bool Add(Dictionary<string, IEnumerable<string>> request);
         IEnumerable<string> Search(Dictionary<string, IEnumerable<string>> request);
+        public IEnumerable<string> Compare(Dictionary<string, IEnumerable<string>> requests);
     }
 }
