@@ -23,7 +23,7 @@ services:
       - PHPLDAPADMIN_LDAP_HOSTS=openldap-shell
 
   sshd-shell:
-    image: sshd:latest
+    image: sshd-shell:latest
     build: ./sshd
     container_name: sshd-shell
     depends_on:

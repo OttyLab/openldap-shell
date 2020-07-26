@@ -15,7 +15,7 @@ objectClass: inetOrgPerson
 objectClass: posixAccount
 cn: Taro Yamada
 sn: Yamada
-uid: taro.yamada 
+uid: taro.yamada
 userPassword: {SSHA}46mXVpqhvxX3mF+yAzawY47d6ldDwwAs
 uidNumber: 3001
 gidNumber: 3000
