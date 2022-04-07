@@ -16,11 +16,14 @@ objectClass: posixAccount
 cn: Taro Yamada
 sn: Yamada
 uid: taro.yamada
-userPassword: {SSHA}46mXVpqhvxX3mF+yAzawY47d6ldDwwAs
+# taro0
+userPassword: {CRYPT}TJVRyiSMUAQzA
 uidNumber: 3001
 gidNumber: 3000
 loginShell: /bin/bash
 homeDirectory: /home/taro.yamada
+givenName: Taro
+mail: taro.yamada@example.com
 
 dn: cn=jiro.sato,ou=Employee,dc=example,dc=com
 objectClass: inetOrgPerson
@@ -28,8 +31,11 @@ objectClass: posixAccount
 cn: Jiro Sato
 sn: Sato
 uid: jiro.sato
-userPassword: {SSHA}XDJsljS1csTQoR7+zN9PyEvZOM3BxlxL
+#jiro0
+userPassword: {CRYPT}BK2zUOeassCaM
 uidNumber: 4001
 gidNumber: 4000
 loginShell: /bin/bash
 homeDirectory: /home/jiro.sato
+givenName: Jiro
+mail: j-sato@example.com
