@@ -1,19 +1,7 @@
-dn: cn=admin,ou=Employee,dc=example,dc=com
+dn: cn=taro.yamada,ou=employee,ou=org1,dc=root
 objectClass: inetOrgPerson
 objectClass: posixAccount
-cn: admin
-sn: Administrator
-uid: admin
-userPassword: {SSHA}n6j+DerPgOpFIAN1H23FjlIlH7NC16Xs
-uidNumber: 2000
-gidNumber: 2000
-loginShell: /bin/bash
-homeDirectory: /home/admin
-
-dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
-objectClass: inetOrgPerson
-objectClass: posixAccount
-cn: Taro Yamada
+cn: taro.yamada
 sn: Yamada
 uid: taro.yamada
 # taro0
@@ -25,10 +13,10 @@ homeDirectory: /home/taro.yamada
 givenName: Taro
 mail: taro.yamada@example.com
 
-dn: cn=jiro.sato,ou=Employee,dc=example,dc=com
+dn: cn=jiro.sato,ou=employee,ou=org2,dc=root
 objectClass: inetOrgPerson
 objectClass: posixAccount
-cn: Jiro Sato
+cn: jiro.sato
 sn: Sato
 uid: jiro.sato
 #jiro0

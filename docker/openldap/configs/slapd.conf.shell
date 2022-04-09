@@ -68,8 +68,8 @@ TLSCRLCheck           none
 #######################################################################
 
 database	Shell
-suffix		"dc=example,dc=com"
-rootdn		"cn=Manager,dc=example,dc=com"
+suffix		"dc=root"
+rootdn		"cn=Manager,dc=root"
 rootpw  	{SSHA}thKMb/I8t5u6ycIPT7iM7hdgUYvSYiKS
 
 add         /command/ShellCommand

@@ -1,0 +1,92 @@
+{
+  "cn=jiro.sato,ou=Employee,dc=example,dc=com": {
+    "cn": [
+      "Jiro Sato"
+    ],
+    "dn": [
+      "cn=jiro.sato,ou=Employee,dc=example,dc=com"
+    ],
+    "gidNumber": [
+      "4000"
+    ],
+    "givenName": [
+      "Jiro"
+    ],
+    "homeDirectory": [
+      "/home/jiro.sato"
+    ],
+    "loginShell": [
+      "/bin/bash"
+    ],
+    "mail": [
+      "j-sato@example.com"
+    ],
+    "msgid": [
+      "4"
+    ],
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount"
+    ],
+    "sn": [
+      "Sato"
+    ],
+    "suffix": [
+      "dc=example,dc=com"
+    ],
+    "uid": [
+      "jiro.sato"
+    ],
+    "uidNumber": [
+      "4001"
+    ],
+    ":userPassword": [
+      "e0NSWVBUfUJLMnpVT2Vhc3NDYU0="
+    ]
+  },
+  "cn=taro.yamada,ou=Employee,dc=example,dc=com": {
+    "cn": [
+      "Taro Yamada"
+    ],
+    "dn": [
+      "cn=taro.yamada,ou=Employee,dc=example,dc=com"
+    ],
+    "gidNumber": [
+      "3000"
+    ],
+    "givenName": [
+      "Taro"
+    ],
+    "homeDirectory": [
+      "/home/taro.yamada"
+    ],
+    "loginShell": [
+      "/bin/bash"
+    ],
+    "mail": [
+      "taro.yamada@example.com"
+    ],
+    "msgid": [
+      "3"
+    ],
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount"
+    ],
+    "sn": [
+      "Yamada"
+    ],
+    "suffix": [
+      "dc=example,dc=com"
+    ],
+    "uid": [
+      "taro.yamada"
+    ],
+    "uidNumber": [
+      "3001"
+    ],
+    ":userPassword": [
+      "e0NSWVBUfVRKVlJ5aVNNVUFRekE="
+    ]
+  }
+}

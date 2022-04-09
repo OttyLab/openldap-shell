@@ -69,8 +69,8 @@ TLSCRLCheck           none
 
 database	mdb
 maxsize		1073741824
-suffix		"dc=example,dc=com"
-rootdn		"cn=Manager,dc=example,dc=com"
+suffix		"dc=root"
+rootdn		"cn=Manager,dc=root"
 # Cleartext passwords, especially for the rootdn, should
 # be avoid.  See slappasswd(8) and slapd.conf(5) for details.
 # Use of strong authentication encouraged.
