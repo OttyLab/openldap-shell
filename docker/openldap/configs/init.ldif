@@ -1,9 +1,9 @@
-dn: dc=example,dc=com
+dn: dc=root
 objectClass: organization
 objectClass: dcObject
 o: Example Organization
-dc: example
+dc: root
 
-dn: cn=Manager,dc=example,dc=com
+dn: cn=Manager,dc=root
 objectClass: organizationalRole
 cn: Manager

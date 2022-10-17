@@ -1,0 +1,28 @@
+{
+	"emulators": {
+		"default": {
+			"port": 3569,
+			"serviceAccount": "emulator-account"
+		}
+	},
+	"contracts": {
+        "LdapDb": "/cadence/LdapDb.cdc"
+    },
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"emulator-account": {
+			"address": "f8d6e0586b0a20c7",
+			"key": "b53b3a5c476d4ef878601a2b5b5eb629f4885b3ab43395a81eb57ade2edbd99d"
+		}
+	},
+	"deployments": {
+        "emulator": {
+            "emulator-account": ["LdapDb"]
+        }
+    }
+}
+ 

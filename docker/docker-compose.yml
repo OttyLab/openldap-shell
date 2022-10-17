@@ -41,4 +41,16 @@ services:
     depends_on:
       - openldap-shell
     ports:
-      - 8080:80
+      - 8081:80
+
+  flow-emulator:
+    image: flow-emulator:latest
+    build: ./flow-emulator
+    container_name: flow-emulator
+    ports:
+      - 8080:8080
+      - 3569:3569
+    volumes:
+      - ./flow-emulator/configs:/configs
+      - ../cadence:/cadence
+    command: bash -c "/root/.local/bin/flow run -f /configs/flow.json"

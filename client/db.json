@@ -1,0 +1,174 @@
+{
+  "cn=Manager,dc=root": {
+    "cn": [
+      "Manager"
+    ],
+    "dn": [
+      "cn=Manager,dc=root"
+    ],
+    "objectClass": [
+      "organizationalRole"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "cn=jiro.sato,ou=employee,ou=org2,dc=root": {
+    ":userPassword": [
+      "e0NSWVBUfUJLMnpVT2Vhc3NDYU0="
+    ],
+    "cn": [
+      "jiro.sato"
+    ],
+    "dn": [
+      "cn=jiro.sato,ou=employee,ou=org2,dc=root"
+    ],
+    "gidNumber": [
+      "4000"
+    ],
+    "givenName": [
+      "Jiro"
+    ],
+    "homeDirectory": [
+      "/home/jiro.sato"
+    ],
+    "loginShell": [
+      "/bin/bash"
+    ],
+    "mail": [
+      "j-sato@example.com"
+    ],
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount"
+    ],
+    "sn": [
+      "Sato"
+    ],
+    "suffix": [
+      "dc=root"
+    ],
+    "uid": [
+      "jiro.sato"
+    ],
+    "uidNumber": [
+      "4001"
+    ]
+  },
+  "cn=taro.yamada,ou=employee,ou=org1,dc=root": {
+    ":userPassword": [
+      "e0NSWVBUfVRKVlJ5aVNNVUFRekE="
+    ],
+    "cn": [
+      "taro.yamada"
+    ],
+    "dn": [
+      "cn=taro.yamada,ou=employee,ou=org1,dc=root"
+    ],
+    "gidNumber": [
+      "3000"
+    ],
+    "givenName": [
+      "Taro"
+    ],
+    "homeDirectory": [
+      "/home/taro.yamada"
+    ],
+    "loginShell": [
+      "/bin/bash"
+    ],
+    "mail": [
+      "taro.yamada@example.com"
+    ],
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount"
+    ],
+    "sn": [
+      "Yamada"
+    ],
+    "suffix": [
+      "dc=root"
+    ],
+    "uid": [
+      "taro.yamada"
+    ],
+    "uidNumber": [
+      "3001"
+    ]
+  },
+  "dc=root": {
+    "dc": [
+      "root"
+    ],
+    "dn": [
+      "dc=root"
+    ],
+    "o": [
+      "Example Organization"
+    ],
+    "objectClass": [
+      "organization",
+      "dcObject"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "ou=employee,ou=org1,dc=root": {
+    "dn": [
+      "ou=employee,ou=org1,dc=root"
+    ],
+    "objectClass": [
+      "organizationalUnit"
+    ],
+    "ou": [
+      "employee"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "ou=employee,ou=org2,dc=root": {
+    "dn": [
+      "ou=employee,ou=org2,dc=root"
+    ],
+    "objectClass": [
+      "organizationalUnit"
+    ],
+    "ou": [
+      "employee"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "ou=org1,dc=root": {
+    "dn": [
+      "ou=org1,dc=root"
+    ],
+    "objectClass": [
+      "organizationalUnit"
+    ],
+    "ou": [
+      "org1"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "ou=org2,dc=root": {
+    "dn": [
+      "ou=org2,dc=root"
+    ],
+    "objectClass": [
+      "organizationalUnit"
+    ],
+    "ou": [
+      "org2"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  }
+}
