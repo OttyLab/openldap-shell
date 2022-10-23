@@ -40,9 +40,11 @@ func TestSearch1(t *testing.T) {
 	inbuf := bytes.NewBufferString(`
 	{
 		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
 			"uid": ["taro"]
 		},
 		"dc=example,dc=com":{
+			"dn": ["dc=example,dc=com"],
 			"uid": ["taro"]
 		}
 	}
@@ -76,10 +78,12 @@ func TestSearch2(t *testing.T) {
 	inbuf := bytes.NewBufferString(`
 	{
 		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["foo", "bar"],
 			"cn": ["Taro Yamada"]
 		},
 		"cn=jiro.sato,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=jiro.sato,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["bar"],
 			"cn": ["Jiro Sato"]
 		}
