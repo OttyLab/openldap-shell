@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/OttyLab/openldap-shell/db"
@@ -61,16 +62,26 @@ func TestSearch1(t *testing.T) {
 	}
 	result, _ := Search(parameter, &driver)
 
-	expected := `dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
-uid: taro
+	//
+	//Expected:
+	//dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
+	//uid: taro
+	//
+	//RESULT
+	//code: 0
+	//
 
-RESULT
-code: 0
-`
-
-	if result != expected {
-		t.Error("does not match")
-		println(result)
+	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
+		t.Error("dn does not exist")
+	}
+	if strings.Index(result, "uid: taro") == -1 {
+		t.Error("uid does not exist")
+	}
+	if strings.Index(result, "code: 0") == -1 {
+		t.Error("code: 0 does not exist")
+	}
+	if strings.Index(result, "code: 0") == -1 {
+		t.Error("code: 0 does not exist")
 	}
 }
 
@@ -80,12 +91,14 @@ func TestSearch2(t *testing.T) {
 		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
 			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["foo", "bar"],
-			"cn": ["Taro Yamada"]
+			"cn": ["Taro Yamada"],
+			"mail": ["taro.yamada@example.com"]
 		},
 		"cn=jiro.sato,ou=Employee,dc=example,dc=com":{
 			"dn": ["cn=jiro.sato,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["bar"],
-			"cn": ["Jiro Sato"]
+			"cn": ["Jiro Sato"],
+			"mail": ["j-sato@example.com"]
 		}
 	}
 	`)
@@ -98,22 +111,36 @@ func TestSearch2(t *testing.T) {
 		"scope":     []string{"2"},
 		"sizelimit": []string{"500"},
 		"filter":    []string{" (&(|(cn=*taro*)(givenName=*taro*)(sn=*taro*)(?mozillaNickname=*taro*)(mail=*taro*)(?mozillaSecondEmail=*taro*)(&(description=*taro*))(o=*taro*)(ou=*taro*)(title=*taro*)(?mozillaWorkUrl=*taro*)(?mozillaHomeUrl=*taro*)))"},
-		//"filter": []string{"foo=bar"},
 	}
 
 	result, _ := Search(parameter, &driver)
 
-	expected := `dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
-objectClass: foo
-objectClass: bar
-cn: Taro Yamada
-
-RESULT
-code: 0
-`
-
-	if result != expected {
-		t.Error("does not match")
-		println(result)
+	//
+	// Expected
+	//dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
+	//objectClass: foo
+	//objectClass: bar
+	//cn: Taro Yamada
+	//
+	//RESULT
+	//code: 0
+	//
+	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
+		t.Error("dn does not exist")
+	}
+	if strings.Index(result, "objectClass: foo") == -1 {
+		t.Error("objectClass foo does not exist")
+	}
+	if strings.Index(result, "objectClass: bar") == -1 {
+		t.Error("objectClass bar does not exist")
+	}
+	if strings.Index(result, "cn: Taro Yamada") == -1 {
+		t.Error("cn does not exist")
+	}
+	if strings.Index(result, "code: 0") == -1 {
+		t.Error("code: 0 does not exist")
+	}
+	if strings.Index(result, "code: 0") == -1 {
+		t.Error("code: 0 does not exist")
 	}
 }

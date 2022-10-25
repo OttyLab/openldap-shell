@@ -85,7 +85,8 @@ func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLim
 			break
 		}
 
-		if re.Match([]byte(dn)) && doesMatchFilter(entry, filter) {
+		//if re.Match([]byte(dn)) && doesMatchFilter(entry, filter) {
+		if re.Match([]byte(dn)) && Filter(filter, entry) {
 			filtered[dn] = entry
 			cnt++
 		}
