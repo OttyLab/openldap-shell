@@ -140,3 +140,27 @@ func TestFilter4(t *testing.T) {
 		t.Error("error with dn=" + entries[0]["dn"][3])
 	}
 }
+
+func TestFilter5(t *testing.T) {
+	filter := "(objectClass=*)"
+
+	result := Filter(filter, entries[0])
+	if !result {
+		t.Error("error with dn=" + entries[0]["dn"][0])
+	}
+
+	result = Filter(filter, entries[1])
+	if !result {
+		t.Error("error with dn=" + entries[0]["dn"][1])
+	}
+
+	result = Filter(filter, entries[2])
+	if !result {
+		t.Error("error with dn=" + entries[0]["dn"][2])
+	}
+
+	result = Filter(filter, entries[3])
+	if !result {
+		t.Error("error with dn=" + entries[0]["dn"][3])
+	}
+}

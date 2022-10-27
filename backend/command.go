@@ -23,6 +23,7 @@ func Search(parameter Parameter, db *db.Db) (string, error) {
 	scope := parameter["scope"][0]
 	base := parameter["base"][0]
 	filter := parameter["filter"][0]
+	deref, _ := strconv.Atoi(parameter["deref"][0])
 	sizeLimit, _ := strconv.Atoi(parameter["sizelimit"][0])
 
 	low := "1"
@@ -34,7 +35,7 @@ func Search(parameter Parameter, db *db.Db) (string, error) {
 		return "", err
 	}
 
-	filtered := searchIntenal(entries, re, filter, sizeLimit)
+	filtered := searchIntenal(entries, re, filter, sizeLimit, deref)
 
 	return fromEntries(filtered), nil
 }
@@ -76,17 +77,39 @@ func Compare(parameter Parameter, db *db.Db) string {
 	return "RESULT\ncode: 5\n"
 }
 
-func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLimit int) db.Entries {
+func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLimit int, deref int) db.Entries {
 	filtered := make(db.Entries)
+	aliases := make(db.Entries)
 
 	cnt := 0
+Loop:
 	for dn, entry := range entries {
 		if sizeLimit <= cnt {
 			break
 		}
 
-		//if re.Match([]byte(dn)) && doesMatchFilter(entry, filter) {
+		if deref > 0 {
+			for _, value := range entry["objectClass"] {
+				if value == "alias" {
+					aliasDn := entry["aliasedObjectName"][0]
+					aliases[aliasDn] = entries[aliasDn]
+					continue Loop
+				}
+			}
+		}
+
 		if re.Match([]byte(dn)) && Filter(filter, entry) {
+			filtered[dn] = entry
+			cnt++
+		}
+	}
+
+	for dn, entry := range aliases {
+		if sizeLimit <= cnt {
+			break
+		}
+
+		if Filter(filter, entry) {
 			filtered[dn] = entry
 			cnt++
 		}

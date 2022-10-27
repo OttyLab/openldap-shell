@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -58,6 +59,7 @@ func TestSearch1(t *testing.T) {
 		"base":      []string{"dc=example,dc=com"},
 		"scope":     []string{"2"},
 		"sizelimit": []string{"500"},
+		"deref":     []string{"0"},
 		"filter":    []string{"(uid=*taro*)"},
 	}
 	result, _ := Search(parameter, &driver)
@@ -110,6 +112,7 @@ func TestSearch2(t *testing.T) {
 		"base":      []string{"dc=example,dc=com"},
 		"scope":     []string{"2"},
 		"sizelimit": []string{"500"},
+		"deref":     []string{"0"},
 		"filter":    []string{" (&(|(cn=*taro*)(givenName=*taro*)(sn=*taro*)(?mozillaNickname=*taro*)(mail=*taro*)(?mozillaSecondEmail=*taro*)(&(description=*taro*))(o=*taro*)(ou=*taro*)(title=*taro*)(?mozillaWorkUrl=*taro*)(?mozillaHomeUrl=*taro*)))"},
 	}
 
@@ -142,5 +145,51 @@ func TestSearch2(t *testing.T) {
 	}
 	if strings.Index(result, "code: 0") == -1 {
 		t.Error("code: 0 does not exist")
+	}
+}
+
+func TestSearchAlias(t *testing.T) {
+	inbuf := bytes.NewBufferString(`
+	{
+		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
+			"objectClass": ["inetOrgPerson", "posixAccount"],
+			"uid": ["taro"]
+		},
+		"cn=guest,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=guest,ou=Employee,dc=example,dc=com"],
+			"objectClass": ["alias"],
+			"aliasedObjectName": ["cn=jiro.sato,ou=Employee,dc=example2,dc=com"]
+		},
+		"cn=jiro.sato,ou=Employee,dc=example2,dc=com":{
+			"dn": ["cn=jiro.sato,ou=Employee,dc=example2,dc=com"],
+			"objectClass": ["inetOrgPerson", "posixAccount"],
+			"uid": ["jiro"]
+		}
+	}
+	`)
+
+	outbuf := bytes.NewBuffer(make([]byte, 0))
+	driver := db.Db(db.NewJsonDB(inbuf, outbuf))
+
+	parameter := Parameter{
+		"base":      []string{"dc=example,dc=com"},
+		"scope":     []string{"2"},
+		"sizelimit": []string{"500"},
+		"filter":    []string{"(objectClass=*)"},
+		"deref":     []string{"3"},
+	}
+	result, _ := Search(parameter, &driver)
+
+	fmt.Println(result)
+
+	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
+		t.Error("dn does not exist")
+	}
+	if strings.Index(result, "dn: cn=jiro.sato,ou=Employee,dc=example2,dc=com") == -1 {
+		t.Error("dn does not exist")
+	}
+	if strings.Index(result, "dn: cn=guest,ou=Employee,dc=example,dc=com") != -1 {
+		t.Error("dn does not exist")
 	}
 }
