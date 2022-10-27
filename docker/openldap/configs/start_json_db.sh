@@ -22,6 +22,8 @@ sleep 1
 sleep 1
 /app/bin/ldapadd -x -D "cn=Manager,dc=root" -w admin0 -f /configs/users.ldif
 sleep 1
+/app/bin/ldapadd -x -D "cn=Manager,dc=root" -w admin0 -f /configs/alias.ldif
+sleep 1
 
 
 while :

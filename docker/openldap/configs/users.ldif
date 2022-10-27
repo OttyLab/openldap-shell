@@ -4,14 +4,14 @@ objectClass: posixAccount
 cn: taro.yamada
 sn: Yamada
 uid: taro.yamada
-# taro0
+# taro
 userPassword: {CRYPT}TJVRyiSMUAQzA
 uidNumber: 3001
 gidNumber: 3000
 loginShell: /bin/bash
 homeDirectory: /home/taro.yamada
 givenName: Taro
-mail: taro.yamada@example.com
+mail: taro.yamada@org1.com
 
 dn: cn=jiro.sato,ou=employee,ou=org2,dc=root
 objectClass: inetOrgPerson
@@ -19,11 +19,26 @@ objectClass: posixAccount
 cn: jiro.sato
 sn: Sato
 uid: jiro.sato
-#jiro0
+#jiro
 userPassword: {CRYPT}BK2zUOeassCaM
 uidNumber: 4001
 gidNumber: 4000
 loginShell: /bin/bash
 homeDirectory: /home/jiro.sato
 givenName: Jiro
-mail: j-sato@example.com
+mail: j-sato@org2.com
+
+dn: cn=saburo.suzuki,ou=employee,ou=org2,dc=root
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: saburo.suzuki
+sn: Suzuki
+uid: saburo.suzuki
+#saburo
+userPassword: {CRYPT}AKUt1NxwLHFwg
+uidNumber: 4002
+gidNumber: 4000
+loginShell: /bin/bash
+homeDirectory: /home/saburo.suzuki
+givenName: Saburo
+mail: saburo@org2.com
