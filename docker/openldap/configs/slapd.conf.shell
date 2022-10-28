@@ -68,8 +68,8 @@ TLSCRLCheck           none
 #######################################################################
 
 database	Shell
-suffix		"dc=root"
-rootdn		"cn=Manager,dc=root"
+suffix		"dc=example,dc=com"
+rootdn		"cn=Manager,dc=example,dc=com"
 rootpw  	{SSHA}thKMb/I8t5u6ycIPT7iM7hdgUYvSYiKS
 
 add         /command/ShellCommand
@@ -81,7 +81,3 @@ unbind      /command/ShellCommand
 compare     /command/ShellCommand
 modrdn      /command/ShellCommand
 
-#add         /configs/run.sh
-#delete      /configs/run.sh
-#modify      /configs/run.sh
-#search      /configs/run.sh

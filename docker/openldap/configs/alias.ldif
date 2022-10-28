@@ -1,12 +1,5 @@
-dn: cn=guest,ou=employee,ou=org1,dc=root
+dn: cn=guest,ou=org0,dc=example,dc=com
 objectClass: alias
 objectClass: extensibleobject
 cn: guest
-aliasedObjectName: cn=jiro.sato,ou=employee,ou=org2,dc=root
-
-dn: cn=guest,ou=employee,ou=org2,dc=root
-objectClass: alias
-objectClass: extensibleobject
-cn: guest
-aliasedObjectName: cn=taro.yamada,ou=employee,ou=org1,dc=root
-
+aliasedObjectName: cn=jiro.sato,ou=org1,dc=example,dc=com

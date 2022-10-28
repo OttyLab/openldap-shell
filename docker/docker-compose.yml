@@ -52,5 +52,5 @@ services:
       - 3569:3569
     volumes:
       - ./flow-emulator/configs:/configs
-      - ../cadence:/cadence
+      - ../cadence/contracts:/contracts
     command: bash -c "/root/.local/bin/flow run -f /configs/flow.json"

@@ -1,4 +1,4 @@
-dn: cn=taro.yamada,ou=employee,ou=org1,dc=root
+dn: cn=taro.yamada,ou=org0,dc=example,dc=com
 objectClass: inetOrgPerson
 objectClass: posixAccount
 cn: taro.yamada
@@ -11,9 +11,9 @@ gidNumber: 3000
 loginShell: /bin/bash
 homeDirectory: /home/taro.yamada
 givenName: Taro
-mail: taro.yamada@org1.com
+mail: taro.yamada@example.com
 
-dn: cn=jiro.sato,ou=employee,ou=org2,dc=root
+dn: cn=jiro.sato,ou=org1,dc=example,dc=com
 objectClass: inetOrgPerson
 objectClass: posixAccount
 cn: jiro.sato
@@ -26,9 +26,9 @@ gidNumber: 4000
 loginShell: /bin/bash
 homeDirectory: /home/jiro.sato
 givenName: Jiro
-mail: j-sato@org2.com
+mail: j-sato@example.com
 
-dn: cn=saburo.suzuki,ou=employee,ou=org2,dc=root
+dn: cn=saburo.suzuki,ou=org1,dc=example,dc=com
 objectClass: inetOrgPerson
 objectClass: posixAccount
 cn: saburo.suzuki
@@ -41,4 +41,4 @@ gidNumber: 4000
 loginShell: /bin/bash
 homeDirectory: /home/saburo.suzuki
 givenName: Saburo
-mail: saburo@org2.com
+mail: saburo@example.com

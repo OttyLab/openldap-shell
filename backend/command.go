@@ -88,19 +88,21 @@ Loop:
 			break
 		}
 
-		if deref > 0 {
-			for _, value := range entry["objectClass"] {
-				if value == "alias" {
-					aliasDn := entry["aliasedObjectName"][0]
-					aliases[aliasDn] = entries[aliasDn]
-					continue Loop
+		if re.Match([]byte(dn)) {
+			if deref > 0 {
+				for _, value := range entry["objectClass"] {
+					if value == "alias" {
+						aliasDn := entry["aliasedObjectName"][0]
+						aliases[aliasDn] = entries[aliasDn]
+						continue Loop
+					}
 				}
 			}
-		}
 
-		if re.Match([]byte(dn)) && Filter(filter, entry) {
-			filtered[dn] = entry
-			cnt++
+			if Filter(filter, entry) {
+				filtered[dn] = entry
+				cnt++
+			}
 		}
 	}
 

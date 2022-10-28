@@ -1,7 +1,0 @@
-dn: ou=employee,ou=org1,dc=root
-objectClass: organizationalUnit
-ou: employee
-
-dn: ou=employee,ou=org2,dc=root
-objectClass: organizationalUnit
-ou: employee
