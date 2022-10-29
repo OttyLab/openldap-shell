@@ -4,8 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/OttyLab/openldap-shell/db"
@@ -73,17 +71,11 @@ func TestSearch1(t *testing.T) {
 	//code: 0
 	//
 
-	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
-		t.Error("dn does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn mismatched")
 	}
-	if strings.Index(result, "uid: taro") == -1 {
-		t.Error("uid does not exist")
-	}
-	if strings.Index(result, "code: 0") == -1 {
-		t.Error("code: 0 does not exist")
-	}
-	if strings.Index(result, "code: 0") == -1 {
-		t.Error("code: 0 does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["uid"][0] != "taro" {
+		t.Error("uid mismatched")
 	}
 }
 
@@ -128,23 +120,17 @@ func TestSearch2(t *testing.T) {
 	//RESULT
 	//code: 0
 	//
-	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
-		t.Error("dn does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn mismatched")
 	}
-	if strings.Index(result, "objectClass: foo") == -1 {
-		t.Error("objectClass foo does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["objectClass"][0] != "foo" {
+		t.Error("objectClass foo mismatched")
 	}
-	if strings.Index(result, "objectClass: bar") == -1 {
-		t.Error("objectClass bar does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["objectClass"][1] != "bar" {
+		t.Error("objectClass bar mismatched")
 	}
-	if strings.Index(result, "cn: Taro Yamada") == -1 {
-		t.Error("cn does not exist")
-	}
-	if strings.Index(result, "code: 0") == -1 {
-		t.Error("code: 0 does not exist")
-	}
-	if strings.Index(result, "code: 0") == -1 {
-		t.Error("code: 0 does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["cn"][0] != "Taro Yamada" {
+		t.Error("cn mismatched")
 	}
 }
 
@@ -181,15 +167,10 @@ func TestSearchAlias(t *testing.T) {
 	}
 	result, _ := Search(parameter, &driver)
 
-	fmt.Println(result)
-
-	if strings.Index(result, "dn: cn=taro.yamada,ou=Employee,dc=example,dc=com") == -1 {
-		t.Error("dn does not exist")
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn taro.yamada mismatched")
 	}
-	if strings.Index(result, "dn: cn=jiro.sato,ou=Employee,dc=example2,dc=com") == -1 {
-		t.Error("dn does not exist")
-	}
-	if strings.Index(result, "dn: cn=guest,ou=Employee,dc=example,dc=com") != -1 {
-		t.Error("dn does not exist")
+	if result["cn=jiro.sato,ou=Employee,dc=example2,dc=com"]["dn"][0] != "cn=jiro.sato,ou=Employee,dc=example2,dc=com" {
+		t.Error("dn jiro.sato mismatched")
 	}
 }

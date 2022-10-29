@@ -14,10 +14,10 @@ func Add(parameter Parameter, db *db.Db) error {
 	return err
 }
 
-func Search(parameter Parameter, db *db.Db) (string, error) {
-	entries, err := (*db).Read()
+func Search(parameter Parameter, driver *db.Db) (db.Entries, error) {
+	entries, err := (*driver).Read()
 	if err != nil {
-		return "", err
+		return make(db.Entries), err
 	}
 
 	scope := parameter["scope"][0]
@@ -32,23 +32,23 @@ func Search(parameter Parameter, db *db.Db) (string, error) {
 	}
 	re, err := regexp.Compile("^([^=]+=[^=,]+,){" + low + "," + scope + "}" + base)
 	if err != nil {
-		return "", err
+		return make(db.Entries), err
 	}
 
 	filtered := searchIntenal(entries, re, filter, sizeLimit, deref)
 
-	return fromEntries(filtered), nil
+	return filtered, nil
 }
 
-func Compare(parameter Parameter, db *db.Db) string {
+func Compare(parameter Parameter, db *db.Db) int {
 	entries, err := (*db).Read()
 	if err != nil {
-		return "RESULT\ncode: 34\n"
+		return 34
 	}
 
 	dn := parameter["dn"][0]
 	if _, ok := entries[dn]; !ok {
-		return "RESULT\ncode: 32\n"
+		return 32
 	}
 
 	target := entries[dn]
@@ -66,15 +66,15 @@ func Compare(parameter Parameter, db *db.Db) string {
 				}
 			}
 		} else {
-			return "RESULT\ncode: 32\n"
+			return 32
 		}
 	}
 
 	if result {
-		return "RESULT\ncode: 6\n"
+		return 6
 	}
 
-	return "RESULT\ncode: 5\n"
+	return 5
 }
 
 func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLimit int, deref int) db.Entries {

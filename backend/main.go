@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/OttyLab/openldap-shell/db"
 )
@@ -18,34 +19,34 @@ func main() {
 	log.SetOutput(f)
 
 	// JSON DB
-	//if _, err = os.Stat("db.json"); err != nil {
-	//	if f, err := os.Create("db.json"); err != nil {
-	//		log.Println(err)
-	//		os.Exit(1)
-	//	} else {
-	//		f.WriteString("{}")
-	//		f.Close()
-	//	}
-	//}
+	if _, err = os.Stat("db.json"); err != nil {
+		if f, err := os.Create("db.json"); err != nil {
+			log.Println(err)
+			os.Exit(1)
+		} else {
+			f.WriteString("{}")
+			f.Close()
+		}
+	}
 
-	//reader, err := os.Open("db.json")
-	//if err != nil {
-	//	log.Println(err)
-	//	os.Exit(1)
-	//}
-	//defer reader.Close()
+	reader, err := os.Open("db.json")
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	defer reader.Close()
 
-	//writer, err := os.OpenFile("db.json", os.O_WRONLY, 0666)
-	//if err != nil {
-	//	log.Println(err)
-	//	os.Exit(1)
-	//}
-	//defer writer.Close()
+	writer, err := os.OpenFile("db.json", os.O_WRONLY, 0666)
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	defer writer.Close()
 
-	//driver := db.Db(db.NewJsonDB(reader, writer))
+	jsonDb := db.Db(db.NewJsonDB(reader, writer))
 
 	// Flow DB
-	driver := db.Db(db.NewFlowDb("flow-emulator:3569", "LdapDb", "0xf8d6e0586b0a20c7"))
+	flowDb := db.Db(db.NewFlowDb("flow-emulator:3569", "LdapDb", "0xf8d6e0586b0a20c7"))
 
 	scanner := bufio.NewScanner(os.Stdin)
 	command, parameter, err := parse(scanner)
@@ -67,27 +68,46 @@ func main() {
 
 	switch command {
 	case ADD:
-		err := Add(parameter, &driver)
+		err := Add(parameter, &jsonDb)
 		if err != nil {
 			log.Println(err)
 		}
 	case SEARCH:
-		result, err := Search(parameter, &driver)
+		resultJsonDb, err := Search(parameter, &jsonDb)
 		if err != nil {
 			log.Println(err)
 		}
 
-		log.Println("[Search result]")
-		log.Println(result)
+		resultFlowDb, err := Search(parameter, &flowDb)
+		if err != nil {
+			log.Println(err)
+		}
 
-		fmt.Print(result)
+		result := make(db.Entries)
+		for key, value := range resultJsonDb {
+			result[key] = value
+		}
+		for key, value := range resultFlowDb {
+			result[key] = value
+		}
+
+		log.Println("[Search result in Flow DB]")
+		log.Println(result)
+		fmt.Print(fromEntries(result))
 	case COMPARE:
-		result := Compare(parameter, &driver)
+		result := Compare(parameter, &jsonDb)
+		if result != 6 {
+			log.Println("[iCompare result in JSON DB]")
+			log.Println(result)
+			fmt.Print("RESULT\ncode: " + strconv.Itoa(result) + "\n")
+			break
+		}
 
-		log.Println("[Compare result]")
+		result = Compare(parameter, &flowDb)
+
+		log.Println("[Compare result in Flow DB]")
 		log.Println(result)
-
-		fmt.Print(result)
+		fmt.Print("RESULT\ncode: " + strconv.Itoa(result) + "\n")
 	case BIND:
 		log.Println("[Bind result]")
 	case UNBIND:
