@@ -8,7 +8,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "dc=example,dc=com"
+                        "value": "dc=example"
                     }
                 },
                 {
@@ -20,7 +20,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -44,7 +44,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -75,7 +75,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "cn=Manager,dc=example,dc=com"
+                        "value": "cn=Manager,dc=example"
                     }
                 },
                 {
@@ -87,7 +87,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=Manager,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=Manager,dc=example"}
                                     ]
                                 }
                             },
@@ -103,7 +103,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -133,7 +133,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "ou=person,dc=example,dc=com"
+                        "value": "dc=person,dc=example"
                     }
                 },
                 {
@@ -145,15 +145,15 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "ou=person,dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=person,dc=example"}
                                     ]
                                 }
                             },
                             {
-                                "key": {"type": "String", "value": "ou"},
+                                "key": {"type": "String", "value": "dc"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "ou=person"}
+                                        {"type":"String", "value": "dc=person"}
                                     ]
                                 }
                             },
@@ -161,7 +161,7 @@ flow transactions send ./transactions/set_entry.cdc --signer admin --args-json '
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },

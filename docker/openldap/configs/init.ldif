@@ -1,9 +1,0 @@
-dn: dc=example,dc=com
-objectClass: organization
-objectClass: dcObject
-o: Example
-dc: example
-
-dn: cn=Manager,dc=example,dc=com
-objectClass: organizationalRole
-cn: Manager

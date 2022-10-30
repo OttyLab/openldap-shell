@@ -8,7 +8,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "ou=org0,dc=example,dc=com"
+                        "value": "dc=org0,dc=example"
                     }
                 },
                 {
@@ -20,15 +20,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "ou=org0,dc=example,dc=com"}
-                                    ]
-                                }
-                            },
-                            {
-                                "key": {"type": "String", "value": "ou"},
-                                "value": {"type": "Array",
-                                    "value": [
-                                        {"type":"String", "value": "ou=org0"}
+                                        {"type":"String", "value": "dc=org0,dc=example"}
                                     ]
                                 }
                             },
@@ -36,7 +28,15 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
+                                    ]
+                                }
+                            },
+                            {
+                                "key": {"type": "String", "value": "dc"},
+                                "value": {"type": "Array",
+                                    "value": [
+                                        {"type":"String", "value": "org0"}
                                     ]
                                 }
                             },
@@ -66,7 +66,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "ou=org1,dc=example,dc=com"
+                        "value": "dc=org1,dc=example"
                     }
                 },
                 {
@@ -78,15 +78,15 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "ou=org1,dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=org1,dc=example"}
                                     ]
                                 }
                             },
                             {
-                                "key": {"type": "String", "value": "ou"},
+                                "key": {"type": "String", "value": "dc"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "ou=org1"}
+                                        {"type":"String", "value": "org1"}
                                     ]
                                 }
                             },
@@ -94,7 +94,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },

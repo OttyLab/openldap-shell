@@ -8,7 +8,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "cn=taro.yamada,ou=org0,dc=example,dc=com"
+                        "value": "cn=taro.yamada,dc=org0,dc=example"
                     }
                 },
                 {
@@ -20,7 +20,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=taro.yamada,ou=org0,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=taro.yamada,dc=org0,dc=example"}
                                     ]
                                 }
                             },
@@ -36,7 +36,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -53,7 +53,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "aliasedObjectName"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=taro.yamada,ou=person,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=taro.yamada,dc=person,dc=example"}
                                     ]
                                 }
                             }
@@ -75,7 +75,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "cn=jiro.sato,ou=org1,dc=example,dc=com"
+                        "value": "cn=jiro.sato,dc=org1,dc=example"
                     }
                 },
                 {
@@ -87,7 +87,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=jiro.sato,ou=org1,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=jiro.sato,dc=org1,dc=example"}
                                     ]
                                 }
                             },
@@ -103,7 +103,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -120,7 +120,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org1 --args-json '[
                                 "key": {"type": "String", "value": "aliasedObjectName"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=jiro.sato,ou=person,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=jiro.sato,dc=person,dc=example"}
                                     ]
                                 }
                             }

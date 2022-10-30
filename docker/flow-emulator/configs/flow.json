@@ -6,7 +6,7 @@
 		}
 	},
 	"contracts": {
-        "LdapDb": "/contracts/LdapDb.cdc"
+        "LdapDb": "/cadence/contracts/LdapDb.cdc"
     },
 	"networks": {
 		"emulator": "127.0.0.1:3569",

@@ -8,7 +8,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                     "name": "dn",
                     "value": {
                         "type": "String",
-                        "value": "cn=guest,ou=org0,dc=example,dc=com"
+                        "value": "cn=guest,dc=org0,dc=example"
                     }
                 },
                 {
@@ -20,7 +20,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "dn"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=guest,ou=org0,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=guest,dc=org0,dc=example"}
                                     ]
                                 }
                             },
@@ -36,7 +36,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "suffix"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "dc=example,dc=com"}
+                                        {"type":"String", "value": "dc=example"}
                                     ]
                                 }
                             },
@@ -53,7 +53,7 @@ flow transactions send ./transactions/set_entry.cdc --signer org0 --args-json '[
                                 "key": {"type": "String", "value": "aliasedObjectName"},
                                 "value": {"type": "Array",
                                     "value": [
-                                        {"type":"String", "value": "cn=jiro.sato,ou=person,dc=example,dc=com"}
+                                        {"type":"String", "value": "cn=jiro.sato,dc=person,dc=example"}
                                     ]
                                 }
                             }

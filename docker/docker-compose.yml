@@ -1,33 +1,98 @@
 version: '3'
 
 services:
-  openldap-shell:
+  #openldap-shell-dev:
+  #  image: openldap-shell:latest
+  #  build: ./openldap
+  #  container_name: openldap-shell-dev
+  #  ports:
+  #    - 1389:1389
+  #  volumes:
+  #    - ./openldap/data_dev:/data
+  #    - ./openldap/command:/command
+  #  command: bash -c "/data/start.sh"
+
+  #phpldapadmin-dev:
+  #  image: osixia/phpldapadmin:latest
+  #  container_name: phpldapadmin-dev
+  #  depends_on:
+  #    - openldap-shell-dev
+  #  ports:
+  #    - 6443:443
+  #  environment:
+  #    - 'PHPLDAPADMIN_LDAP_HOSTS=#PYTHON2BASH:[{"openldap-shell-dev": [{"server": [{"port": 1389}]}]}]'
+
+  # org0
+  openldap-shell-org0:
     image: openldap-shell:latest
     build: ./openldap
-    container_name: openldap-shell
+    container_name: openldap-shell-org0
     ports:
-      - 389:389
+      - 2389:2389
     volumes:
-      - ./openldap/data:/data
+      - ./openldap/data_org0:/data
       - ./openldap/command:/command
-    command: bash -c "/configs/start.sh"
+    command: bash -c "/data/start.sh"
 
-  phpldapadmin:
+  phpldapadmin-org0:
     image: osixia/phpldapadmin:latest
-    container_name: phpldapadmin
-    depends_on:
-      - openldap-shell
+    container_name: phpldapadmin-org0
     ports:
-      - 6443:443
+      - 7443:443
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap-shell
+      - 'PHPLDAPADMIN_LDAP_HOSTS=#PYTHON2BASH:[{"openldap-shell-org0": [{"server": [{"port": 2389}]}]}]'
 
+  # org1
+  openldap-shell-org1:
+    image: openldap-shell:latest
+    build: ./openldap
+    container_name: openldap-shell-org1
+    ports:
+      - 3389:3389
+    volumes:
+      - ./openldap/data_org1:/data
+      - ./openldap/command:/command
+    command: bash -c "/data/start.sh"
+
+  phpldapadmin-org1:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin-org1
+    depends_on:
+      - openldap-shell-org1
+    ports:
+      - 8443:443
+    environment:
+      - 'PHPLDAPADMIN_LDAP_HOSTS=#PYTHON2BASH:[{"openldap-shell-org1": [{"server": [{"port": 3389}]}]}]'
+
+  # person
+  openldap-shell-person:
+    image: openldap-shell:latest
+    build: ./openldap
+    container_name: openldap-shell-person
+    ports:
+      - 4389:4389
+    volumes:
+      - ./openldap/data_person:/data
+      - ./openldap/command:/command
+    command: bash -c "/data/start.sh"
+
+  phpldapadmin-person:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin-person
+    depends_on:
+      - openldap-shell-org1
+    ports:
+      - 9443:443
+    environment:
+      - 'PHPLDAPADMIN_LDAP_HOSTS=#PYTHON2BASH:[{"openldap-shell-person": [{"server": [{"port": 4389}]}]}]'
+
+  # Apps
   sshd-shell:
     image: sshd-shell:latest
     build: ./sshd
     container_name: sshd-shell
     depends_on:
-      - openldap-shell
+      - openldap-shell-person
     ports:
       - 8022:222
     volumes:
@@ -39,7 +104,7 @@ services:
     build: ./apache2
     container_name: apache2-shell
     depends_on:
-      - openldap-shell
+      - openldap-shell-person
     ports:
       - 8081:80
 
@@ -52,5 +117,5 @@ services:
       - 3569:3569
     volumes:
       - ./flow-emulator/configs:/configs
-      - ../cadence/contracts:/contracts
-    command: bash -c "/root/.local/bin/flow run -f /configs/flow.json"
+      - ../cadence/:/cadence
+    command: bash -c "flow run -f /configs/flow.json"
