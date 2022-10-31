@@ -1,8 +1,23 @@
 ## PHP LDAP Admin login
 
-- URL: https://localhost:6443/
-- Login DN: dc=example,dc=com
+### org0
+
+- URL: https://localhost:7443/
+- Login DN: dc=example
 - Password: admin0
+
+### org1
+
+- URL: https://localhost:8443/
+- Login DN: dc=example
+- Password: admin0
+
+### person
+
+- URL: https://localhost:9443/
+- Login DN: dc=example
+- Password: admin0
+
 
 ## Services
 ### httpd
@@ -29,6 +44,7 @@ note that taro.yamada does not have an access to sshd
 
 
 ### address
+
 host name: localhost
-base identifier: ou=org0,dc=example,dc=com
+base identifier: dc=org0,dc=example
 port: 389
