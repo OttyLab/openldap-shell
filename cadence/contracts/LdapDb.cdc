@@ -29,11 +29,17 @@ pub contract LdapDb {
         }
 
         pub fun setEntry(entry: Entry) {
+            if (self.dn.length > entry.dn.length) {
+                panic("entry dn should be longer than DIT dn")
+            }
+
+            let comp = entry.dn.slice(from: entry.dn.length - self.dn.length, upTo: entry.dn.length)
+            if (self.dn != comp) {
+                panic("entry dn should be under DIT dn")
+            }
+
             self.entries.append(entry)
         }
-        //pub fun setAttributes(attributes: {String: [String]}) {
-        //    self.attributes = attributes
-        //}
     }
 
     pub fun createDit(dn: String): @Dit {
