@@ -6,7 +6,7 @@
 		}
 	},
 	"contracts": {
-        "LdapDb": "/cadence/LdapDb.cdc"
+        "LdapDb": "/cadence/contracts/LdapDb.cdc"
     },
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -17,6 +17,26 @@
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
 			"key": "b53b3a5c476d4ef878601a2b5b5eb629f4885b3ab43395a81eb57ade2edbd99d"
+		},
+		"admin": {
+			"address": "01cf0e2f2f715450",
+			"key": "16bce0227d2221004a4c1e34d5f73530b33b795059abbf2cde196164ab658dc5"
+		},
+		"org0": {
+			"address": "179b6b1cb6755e31",
+			"key": "917fedc7e1808eac8e0193da5f2b12ee675ab365c570a3fbf7c4b172ca29633d"
+		},
+		"org1": {
+			"address": "f3fcd2c1a78f5eee",
+			"key": "aa21c21b460670e44b5ee067bcc8fe86321795e60672f9fe16351770c7b04239"
+		},
+		"user0": {
+			"address": "e03daebed8ca0615",
+			"key": "beb4c294bd27844618ef1c193aed63cba4144091aafad92f0047aaff4a682fdb"
+		},
+		"user1": {
+			"address": "045a1763c93006ca",
+			"key": "b5b4c87417d61b9e314930b778246ab28facfff93fdc33d7ab27745e60d3a4a4"
 		}
 	},
 	"deployments": {

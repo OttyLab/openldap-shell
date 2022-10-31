@@ -40,9 +40,11 @@ func TestSearch1(t *testing.T) {
 	inbuf := bytes.NewBufferString(`
 	{
 		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
 			"uid": ["taro"]
 		},
 		"dc=example,dc=com":{
+			"dn": ["dc=example,dc=com"],
 			"uid": ["taro"]
 		}
 	}
@@ -55,20 +57,25 @@ func TestSearch1(t *testing.T) {
 		"base":      []string{"dc=example,dc=com"},
 		"scope":     []string{"2"},
 		"sizelimit": []string{"500"},
+		"deref":     []string{"0"},
 		"filter":    []string{"(uid=*taro*)"},
 	}
 	result, _ := Search(parameter, &driver)
 
-	expected := `dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
-uid: taro
+	//
+	//Expected:
+	//dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
+	//uid: taro
+	//
+	//RESULT
+	//code: 0
+	//
 
-RESULT
-code: 0
-`
-
-	if result != expected {
-		t.Error("does not match")
-		println(result)
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn mismatched")
+	}
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["uid"][0] != "taro" {
+		t.Error("uid mismatched")
 	}
 }
 
@@ -76,12 +83,16 @@ func TestSearch2(t *testing.T) {
 	inbuf := bytes.NewBufferString(`
 	{
 		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["foo", "bar"],
-			"cn": ["Taro Yamada"]
+			"cn": ["Taro Yamada"],
+			"mail": ["taro.yamada@example.com"]
 		},
 		"cn=jiro.sato,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=jiro.sato,ou=Employee,dc=example,dc=com"],
 			"objectClass": ["bar"],
-			"cn": ["Jiro Sato"]
+			"cn": ["Jiro Sato"],
+			"mail": ["j-sato@example.com"]
 		}
 	}
 	`)
@@ -93,23 +104,73 @@ func TestSearch2(t *testing.T) {
 		"base":      []string{"dc=example,dc=com"},
 		"scope":     []string{"2"},
 		"sizelimit": []string{"500"},
+		"deref":     []string{"0"},
 		"filter":    []string{" (&(|(cn=*taro*)(givenName=*taro*)(sn=*taro*)(?mozillaNickname=*taro*)(mail=*taro*)(?mozillaSecondEmail=*taro*)(&(description=*taro*))(o=*taro*)(ou=*taro*)(title=*taro*)(?mozillaWorkUrl=*taro*)(?mozillaHomeUrl=*taro*)))"},
-		//"filter": []string{"foo=bar"},
 	}
 
 	result, _ := Search(parameter, &driver)
 
-	expected := `dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
-objectClass: foo
-objectClass: bar
-cn: Taro Yamada
+	//
+	// Expected
+	//dn: cn=taro.yamada,ou=Employee,dc=example,dc=com
+	//objectClass: foo
+	//objectClass: bar
+	//cn: Taro Yamada
+	//
+	//RESULT
+	//code: 0
+	//
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn mismatched")
+	}
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["objectClass"][0] != "foo" {
+		t.Error("objectClass foo mismatched")
+	}
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["objectClass"][1] != "bar" {
+		t.Error("objectClass bar mismatched")
+	}
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["cn"][0] != "Taro Yamada" {
+		t.Error("cn mismatched")
+	}
+}
 
-RESULT
-code: 0
-`
+func TestSearchAlias(t *testing.T) {
+	inbuf := bytes.NewBufferString(`
+	{
+		"cn=taro.yamada,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=taro.yamada,ou=Employee,dc=example,dc=com"],
+			"objectClass": ["inetOrgPerson", "posixAccount"],
+			"uid": ["taro"]
+		},
+		"cn=guest,ou=Employee,dc=example,dc=com":{
+			"dn": ["cn=guest,ou=Employee,dc=example,dc=com"],
+			"objectClass": ["alias"],
+			"aliasedObjectName": ["cn=jiro.sato,ou=Employee,dc=example2,dc=com"]
+		},
+		"cn=jiro.sato,ou=Employee,dc=example2,dc=com":{
+			"dn": ["cn=jiro.sato,ou=Employee,dc=example2,dc=com"],
+			"objectClass": ["inetOrgPerson", "posixAccount"],
+			"uid": ["jiro"]
+		}
+	}
+	`)
 
-	if result != expected {
-		t.Error("does not match")
-		println(result)
+	outbuf := bytes.NewBuffer(make([]byte, 0))
+	driver := db.Db(db.NewJsonDB(inbuf, outbuf))
+
+	parameter := Parameter{
+		"base":      []string{"dc=example,dc=com"},
+		"scope":     []string{"2"},
+		"sizelimit": []string{"500"},
+		"filter":    []string{"(objectClass=*)"},
+		"deref":     []string{"3"},
+	}
+	result, _ := Search(parameter, &driver)
+
+	if result["cn=taro.yamada,ou=Employee,dc=example,dc=com"]["dn"][0] != "cn=taro.yamada,ou=Employee,dc=example,dc=com" {
+		t.Error("dn taro.yamada mismatched")
+	}
+	if result["cn=jiro.sato,ou=Employee,dc=example2,dc=com"]["dn"][0] != "cn=jiro.sato,ou=Employee,dc=example2,dc=com" {
+		t.Error("dn jiro.sato mismatched")
 	}
 }

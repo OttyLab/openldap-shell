@@ -77,15 +77,23 @@ func (flowDb *FlowDb) getEntriesFromFlow() (cadence.Value, error) {
 	// TODO:
 	script := `
 		import LdapDb from 0xf8d6e0586b0a20c7
+
 		pub fun main(): {String: {String: [String]}} {
 		    var entries: {String: {String: [String]}} = {}
-		    for key in LdapDb.entries.keys {
-		        if let capability = LdapDb.entries[key]{
-		            if let entryRef = capability.borrow() {
-		                entries[key.toString()] = entryRef.attributes
+
+		    for key in LdapDb.dits.keys {
+		        if let capability = LdapDb.dits[key]{
+		            if let ditRef = capability.borrow() {
+		                log(key)
+		                log(ditRef.dn)
+		                for entry in ditRef.entries {
+		                    entries[entry.dn] = entry.attributes
+		                }
 		            }
 		        }
 		    }
+
+		    log(entries)
 		    return entries
 		}
 	`

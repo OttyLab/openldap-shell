@@ -13,6 +13,90 @@
       "dc=root"
     ]
   },
+  "cn=guest,ou=employee,ou=org1,dc=root": {
+    "aliasedObjectName": [
+      "cn=jiro.sato,ou=employee,ou=org2,dc=root"
+    ],
+    "cn": [
+      "guest"
+    ],
+    "dn": [
+      "cn=guest,ou=employee,ou=org1,dc=root"
+    ],
+    "msgid": [
+      "2"
+    ],
+    "objectClass": [
+      "alias",
+      "extensibleObject"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "cn=guest,ou=employee,ou=org2,dc=root": {
+    "aliasedObjectName": [
+      "cn=taro.yamada,ou=employee,ou=org1,dc=root"
+    ],
+    "cn": [
+      "guest"
+    ],
+    "dn": [
+      "cn=guest,ou=employee,ou=org2,dc=root"
+    ],
+    "msgid": [
+      "3"
+    ],
+    "objectClass": [
+      "alias",
+      "extensibleObject"
+    ],
+    "suffix": [
+      "dc=root"
+    ]
+  },
+  "cn=saburo.suzuki,ou=employee,ou=org2,dc=root": {
+    ":userPassword": [
+      "e0NSWVBUfUFLVXQxTnh3TEhGd2c="
+    ],
+    "cn": [
+      "saburo.suzuki"
+    ],
+    "dn": [
+      "cn=saburo.suzuki,ou=employee,ou=org2,dc=root"
+    ],
+    "gidNumber": [
+      "4000"
+    ],
+    "givenName": [
+      "Saburo"
+    ],
+    "homeDirectory": [
+      "/home/saburo.suzuki"
+    ],
+    "loginShell": [
+      "/bin/bash"
+    ],
+    "mail": [
+      "saburo@example.com"
+    ],
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount"
+    ],
+    "sn": [
+      "Suzuki"
+    ],
+    "suffix": [
+      "dc=root"
+    ],
+    "uid": [
+      "saburo.suzuki"
+    ],
+    "uidNumber": [
+      "4002"
+    ]
+  },
   "cn=jiro.sato,ou=employee,ou=org2,dc=root": {
     ":userPassword": [
       "e0NSWVBUfUJLMnpVT2Vhc3NDYU0="

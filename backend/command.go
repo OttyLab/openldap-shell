@@ -14,15 +14,16 @@ func Add(parameter Parameter, db *db.Db) error {
 	return err
 }
 
-func Search(parameter Parameter, db *db.Db) (string, error) {
-	entries, err := (*db).Read()
+func Search(parameter Parameter, driver *db.Db) (db.Entries, error) {
+	entries, err := (*driver).Read()
 	if err != nil {
-		return "", err
+		return make(db.Entries), err
 	}
 
 	scope := parameter["scope"][0]
 	base := parameter["base"][0]
 	filter := parameter["filter"][0]
+	deref, _ := strconv.Atoi(parameter["deref"][0])
 	sizeLimit, _ := strconv.Atoi(parameter["sizelimit"][0])
 
 	low := "1"
@@ -31,23 +32,23 @@ func Search(parameter Parameter, db *db.Db) (string, error) {
 	}
 	re, err := regexp.Compile("^([^=]+=[^=,]+,){" + low + "," + scope + "}" + base)
 	if err != nil {
-		return "", err
+		return make(db.Entries), err
 	}
 
-	filtered := searchIntenal(entries, re, filter, sizeLimit)
+	filtered := searchIntenal(entries, re, filter, sizeLimit, deref)
 
-	return fromEntries(filtered), nil
+	return filtered, nil
 }
 
-func Compare(parameter Parameter, db *db.Db) string {
+func Compare(parameter Parameter, db *db.Db) int {
 	entries, err := (*db).Read()
 	if err != nil {
-		return "RESULT\ncode: 34\n"
+		return 34
 	}
 
 	dn := parameter["dn"][0]
 	if _, ok := entries[dn]; !ok {
-		return "RESULT\ncode: 32\n"
+		return 32
 	}
 
 	target := entries[dn]
@@ -65,27 +66,52 @@ func Compare(parameter Parameter, db *db.Db) string {
 				}
 			}
 		} else {
-			return "RESULT\ncode: 32\n"
+			return 32
 		}
 	}
 
 	if result {
-		return "RESULT\ncode: 6\n"
+		return 6
 	}
 
-	return "RESULT\ncode: 5\n"
+	return 5
 }
 
-func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLimit int) db.Entries {
+func searchIntenal(entries db.Entries, re *regexp.Regexp, filter string, sizeLimit int, deref int) db.Entries {
 	filtered := make(db.Entries)
+	aliases := make(db.Entries)
 
 	cnt := 0
+Loop:
 	for dn, entry := range entries {
 		if sizeLimit <= cnt {
 			break
 		}
 
-		if re.Match([]byte(dn)) && doesMatchFilter(entry, filter) {
+		if re.Match([]byte(dn)) {
+			if deref > 0 {
+				for _, value := range entry["objectClass"] {
+					if value == "alias" {
+						aliasDn := entry["aliasedObjectName"][0]
+						aliases[aliasDn] = entries[aliasDn]
+						continue Loop
+					}
+				}
+			}
+
+			if Filter(filter, entry) {
+				filtered[dn] = entry
+				cnt++
+			}
+		}
+	}
+
+	for dn, entry := range aliases {
+		if sizeLimit <= cnt {
+			break
+		}
+
+		if Filter(filter, entry) {
 			filtered[dn] = entry
 			cnt++
 		}

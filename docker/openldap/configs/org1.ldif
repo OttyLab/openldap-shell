@@ -1,3 +1,0 @@
-dn: ou=org1,dc=root
-objectClass: organizationalUnit
-ou: org1

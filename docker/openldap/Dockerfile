@@ -26,4 +26,4 @@ RUN cd openldap && \
 COPY configs/* /configs/
 
 RUN mkdir /app/etc/openldap/slapd.d 
-RUN /app/sbin/slaptest -f /configs/slapd.conf.shell -F /app/etc/openldap/slapd.d; exit 0
+#RUN /app/sbin/slaptest -f /configs/slapd.conf.shell -F /app/etc/openldap/slapd.d; exit 0
